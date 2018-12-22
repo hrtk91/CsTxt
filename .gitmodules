@@ -1,0 +1,3 @@
+[submodule "WpfKit"]
+	path = WpfKit
+	url = https://github.com/Y-Koji/WpfKit
