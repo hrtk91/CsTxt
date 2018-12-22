@@ -1,0 +1,25 @@
+﻿@using System;
+@using System.Text;
+@using System.Net;
+@using System.Linq;
+@using System.Net;
+@using System.Net.Http;
+@{
+    Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+    const string INITIAL_WORD = "HELLO, WORLD!";
+    readonly HttpClient Client = new HttpClient();
+}
+
+Initial Word => @{= INITIAL_WORD }
+
+Random CSV Sample
+@{
+    Random random = new Random();
+    foreach (var i in Enumerable.Range(0, 10))
+    {
+        #@{= i },@{= random.Next() },@{= random.Next() },@{= random.Next() }
+    }
+}
+
+Google HTML->>
+@{= await Client.GetStringAsync("https://www.google.co.jp/") }

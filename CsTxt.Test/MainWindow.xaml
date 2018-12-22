@@ -1,0 +1,86 @@
+﻿<Window x:Class="CsTxt.Test.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CsTxt.Test"
+        mc:Ignorable="d"
+        xmlns:kit="clr-namespace:WpfKit;assembly=WpfKit"
+        xmlns:vkit="clr-namespace:WpfKit.ViewKit;assembly=WpfKit"
+        xmlns:ckit="clr-namespace:WpfKit.ViewKit.Command;assembly=WpfKit"
+        Title="MainWindow" Height="450" Width="800">
+
+    <vkit:Element.DataContext>
+        <local:MainViewModel />
+    </vkit:Element.DataContext>
+
+    <vkit:Element.Triggers>
+        <vkit:EventTrigger EventName="Loaded">
+            <vkit:InvokeCommandAction Command="{Binding Initialize}" />
+        </vkit:EventTrigger>
+    </vkit:Element.Triggers>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Background="#3CF">
+                    <TextBlock
+                        Text="CSharp Text" 
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Foreground="#EEE"
+                        FontSize="15"/>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <TextBox Text="{Binding CSharpText,UpdateSourceTrigger=PropertyChanged}" Background="#AAF" AcceptsReturn="True" />
+                </Grid>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Background="#F3C">
+                    <TextBlock
+                        Text="CSharp" 
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Foreground="#EEE"
+                        FontSize="15"/>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <TextBox Text="{Binding CSharp}" Background="#FCC" AcceptsReturn="True" />
+                </Grid>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Background="#C3F">
+                <TextBlock
+                        Text="Text" 
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Foreground="#EEE"
+                        FontSize="15"/>
+            </Grid>
+            <Grid Grid.Row="1">
+                <TextBox Text="{Binding Text}" Background="#C3F" AcceptsReturn="True" />
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
