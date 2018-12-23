@@ -9,7 +9,7 @@
              xmlns:vm="clr-namespace:CSTPad.ViewModel"
              xmlns:m="clr-namespace:CSTPad.Model" x:Class="CSTPad.View.DebugEditor"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance Type={x:Type view:DebugEditor}}"
+             d:DataContext="{d:DesignInstance Type={x:Type vm:DebugEditorViewModel}}"
              d:DesignHeight="450" d:DesignWidth="800">
 
     <UserControl.Resources>
@@ -22,6 +22,12 @@
         <vm:DebugEditorViewModel />
     </vKit:Element.DataContext>
 
+    <vKit:Element.Triggers>
+        <vKit:EventTrigger EventName="Loaded">
+            <vKit:InvokeCommandAction  Command="{Binding Initialize}" />
+        </vKit:EventTrigger>
+    </vKit:Element.Triggers>
+    
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
@@ -64,7 +70,7 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                    <TextBlock Text="{Binding Now}" Foreground="#EEE" FontSize="16" />
+                    <TextBlock Text="{Binding NowTime}" Foreground="#EEE" FontSize="16" />
                     <TextBlock Text="    " />
                 </StackPanel>
             </Grid>

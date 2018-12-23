@@ -8,7 +8,7 @@
         xmlns:vKit="clr-namespace:WpfKit.ViewKit;assembly=WpfKit"
         xmlns:view="clr-namespace:CSTPad.View"
         xmlns:vm="clr-namespace:CSTPad.ViewModel"
-        Title="MainWindow" Height="450" Width="800"
+        Title="CSTPad - v0.1" Height="450" Width="800"
         d:DataContext="{d:DesignInstance Type={x:Type vm:MainViewModel}}">
 
     <vKit:Element.DataContext>
