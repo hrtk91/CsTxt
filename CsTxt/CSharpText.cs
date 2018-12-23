@@ -16,6 +16,7 @@ namespace CsTxt
         public CSharpText(string text)
         {
             Content = text;
+
         }
 
         public async Task<string> CompileToCSharpAsync()
@@ -35,7 +36,7 @@ namespace CsTxt
             blocks.Insert(1, ScriptBlock.Parse("@{ var Out = new StringBuilder(); }"));
             blocks.Add(ScriptBlock.Parse("@{ string result = Out.ToString(); }"));
 
-            var csharp = await blocks.ToCSharpAsync();
+            var csharp = blocks.ToCSharp();
 
             var options = ScriptOptions.Default;
 

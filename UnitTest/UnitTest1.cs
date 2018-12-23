@@ -17,6 +17,8 @@ namespace UnitTest
 
             CSharpText cst = new CSharpText(text);
             string result = cst.RunAsync().Result;
+
+            var result2 = BlockFactory.Parse(text).ToCSharpAsync().Result;
         }
     }
 }

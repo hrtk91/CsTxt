@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Input;
 using WpfKit.ViewModelKit;
 
@@ -15,14 +16,19 @@ namespace CsTxt.Test
 
         private CSharpText CSharpTextCompiler { get; } = new CSharpText(string.Empty);
 
+        public virtual string FileName { get; set; }
+
         public virtual string CSharpText { get; set; }
 
         public virtual string CSharp { get; set; }
 
         public virtual string Text { get; set; }
 
+        public virtual string Now { get; set; }
+
         public ICommand Initialize => new ActionCommand(_ =>
         {
+
             PropertyChanged += async (sender, e) =>
             {
                 if (e.PropertyName == nameof(CSharpText))
@@ -40,6 +46,10 @@ namespace CsTxt.Test
                     }
                 }
             };
+
+            Timer timer = new Timer(1000);
+            timer.Elapsed += (sender, e) => Now = DateTime.Now.ToString();
+            timer.Start();
         });
     }
 }

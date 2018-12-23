@@ -21,7 +21,7 @@ namespace CsTxt.Block
             {
                 if ('@' == text[index])
                 {
-                    if ('@' == text[index + 1])
+                    if (index + 1 < text.Length && '@' == text[index + 1])
                     {
                         // 2連続@ならエスケープとして解釈
                         sb.Append('@');

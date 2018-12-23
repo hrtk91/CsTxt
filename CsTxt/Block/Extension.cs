@@ -18,7 +18,10 @@ namespace CsTxt.Block
 
         public static async Task<string> ToCSharpAsync(this IEnumerable<IBlock> blocks)
         {
-            return await Task.Run(() => blocks.ToCSharp());
+
+            string result = await Task.Run<string>(() => blocks.ToCSharp());
+
+            return result;
         }
     }
 }

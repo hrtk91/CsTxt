@@ -38,7 +38,7 @@ namespace CsTxt.Block
             }
 
             int nest = 0;
-            for (bool isFindExitBlock = false; !isFindExitBlock; index++)
+            for (bool isFindExitBlock = false;index < text.Length && !isFindExitBlock; index++)
             {
                 if ('{' == text[index])
                 {
