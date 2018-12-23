@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Background="#F3C">
             <TextBlock
-                Text="CSharp Text" 
+                Text="Transformed CSharp" 
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Foreground="#EEE"
