@@ -32,12 +32,13 @@ namespace CSTPad.ViewModel
         {
             CSharpConvertionBlock = new ActionBlock<string>(text =>
             {
-                ResultText = "<処理中...>";
+                CSharp = ResultText = "<処理中...>";
 
                 try
                 {
                     var result = CSharpTextInstance.RunAsync(text).Result;
 
+                    CSharp = CSharpTextInstance.CompileToCSharpAsync().Result;
                     ResultText = result;
                 }
                 catch (Exception e)
