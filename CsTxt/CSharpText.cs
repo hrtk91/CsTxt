@@ -29,6 +29,13 @@ namespace CsTxt
             return await blocks.ToCSharpAsync();
         }
 
+        public async Task<string> RunAsync(string text)
+        {
+            Content = text;
+
+            return await RunAsync();
+        }
+
         public async Task<string> RunAsync()
         {
             var blocks = BlockFactory.Parse(Content);

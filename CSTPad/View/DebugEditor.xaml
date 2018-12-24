@@ -44,24 +44,16 @@
                     <ColumnDefinition Width="1*" MinWidth="30" />
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0">
-                    <view:CsTextEditor x:Name="CsText">
-                        <vKit:Element.Triggers>
-                            <vKit:EventTrigger EventName="Loaded">
-                                <vKit:InvokeCommandAction 
-                                    Command="{Binding Data.InitializeCSharpView, Source={StaticResource DataContext}}"
-                                    CommandParameter="{Binding}" />
-                            </vKit:EventTrigger>
-                        </vKit:Element.Triggers>
-                    </view:CsTextEditor>
+                    <view:CsTextEditor x:Name="CsText" Text="{Binding CsText,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" />
                 </Grid>
                 <GridSplitter Grid.Column="1" Width="1" HorizontalAlignment="Center" />
                 <Grid Grid.Column="2">
-                    <view:CSharpView x:Name="CSharp" Text="{Binding Text, Converter={StaticResource TextSharp2CSharpConverter}, ElementName=CsText, Mode=OneWay}" />
+                    <view:CSharpView x:Name="CSharp" Text="{Binding CSharp,UpdateSourceTrigger=PropertyChanged}" />
                 </Grid>
             </Grid>
             <GridSplitter Grid.Row="1" Height="1" HorizontalAlignment="Stretch" />
             <Grid Grid.Row="2">
-                <view:ResultView x:Name="Result" Text="{Binding Text, Converter={StaticResource CSharpResultConverter}, ElementName=CsText}" />
+                <view:ResultView x:Name="Result" Text="{Binding ResultText,UpdateSourceTrigger=PropertyChanged}" />
             </Grid>
             <Grid Grid.Row="3" Background="#CA5100">
                 <Grid.ColumnDefinitions>

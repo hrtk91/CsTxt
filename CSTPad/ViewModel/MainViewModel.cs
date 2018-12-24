@@ -18,8 +18,6 @@ namespace CSTPad.ViewModel
 
         public ICommand Initialize => new ActionCommand(async _ =>
         {
-            await Compiler.Compile("@using System;");
-
             IsInitializing = false;
         });
     }
