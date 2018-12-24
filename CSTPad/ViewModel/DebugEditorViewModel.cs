@@ -30,13 +30,20 @@ namespace CSTPad.ViewModel
 
         public ICommand Initialize => new ActionCommand(context =>
         {
-            CSharpConvertionBlock = new ActionBlock<string>(async text =>
+            CSharpConvertionBlock = new ActionBlock<string>(text =>
             {
                 ResultText = "<処理中...>";
 
-                var result = await CSharpTextInstance.RunAsync(text);
+                try
+                {
+                    var result = CSharpTextInstance.RunAsync(text).Result;
 
-                ResultText = result;
+                    ResultText = result;
+                }
+                catch (Exception e)
+                {
+                    ResultText = e.InnerException.Message + "\r\n" + e.InnerException.StackTrace;
+                }
             });
 
             PropertyChanged += (sender, e) =>
