@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Interactivity;
 
 namespace CSTPad.Model
@@ -19,6 +20,60 @@ namespace CSTPad.Model
             base.OnAttached();
 
             AssociatedObject.KeyUp += OnKeyUp;
+            AssociatedObject.PreviewKeyDown += OnKeyDown;
+        }
+
+        private void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Tab)
+            {
+                if (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift))
+                {
+                    // Shift + Tab
+                    int caret = AssociatedObject.CaretIndex;
+                    StringBuilder sb = new StringBuilder();
+                    for (int i = caret - 1;0 < i;i--)
+                    {
+                        if ('\n' == AssociatedObject.Text[i])
+                        {
+                            break;
+                        }
+
+                        sb.Insert(0, AssociatedObject.Text[i]);
+                    }
+
+                    string line = sb.ToString();
+
+                    if (line.All(x => ' ' == x))
+                    {
+                        if (4 <= line.Length)
+                        {
+                            AssociatedObject.Text = AssociatedObject.Text.Remove(caret - 4, 4);
+                            AssociatedObject.CaretIndex = caret - 4;
+                        }
+                        else
+                        {
+                            AssociatedObject.Text = AssociatedObject.Text.Remove(caret - line.Length, line.Length);
+                            AssociatedObject.CaretIndex = caret - line.Length;
+                        }
+                    }
+                }
+                else
+                {
+                    // Tab
+                    int caret = AssociatedObject.CaretIndex;
+                    AssociatedObject.Text =
+                        AssociatedObject.Text.Insert(caret, "    ");
+                    AssociatedObject.CaretIndex = caret + 4;
+                }
+
+                e.Handled = true;
+            }
+
+            if (e.Key == Key.Enter)
+            {
+                // TODO: 前行のインデントを保持
+            }
         }
 
         private (int indent, bool isScriptBlock) Analyze(string text, int position)
@@ -98,7 +153,7 @@ namespace CSTPad.Model
 
         private void OnKeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(AssociatedObject.Text))
+            if (0 == AssociatedObject.Text.Length)
             {
                 return;
             }

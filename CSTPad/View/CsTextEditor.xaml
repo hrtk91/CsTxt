@@ -28,7 +28,7 @@
         </Grid>
         <Grid Grid.Row="1">
             <TextBox Text="{Binding Text, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:CsTextEditor}},UpdateSourceTrigger=PropertyChanged}" 
-                     Background="#AAF" AcceptsReturn="True">
+                     Background="#AAF" AcceptsReturn="True" AcceptsTab="True">
                 <i:Interaction.Behaviors>
                     <m:CsTextBehavior />
                 </i:Interaction.Behaviors>
