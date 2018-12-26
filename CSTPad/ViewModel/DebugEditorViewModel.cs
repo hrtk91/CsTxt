@@ -32,8 +32,6 @@ namespace CSTPad.ViewModel
         {
             CSharpConvertionBlock = new ActionBlock<string>(text =>
             {
-                CSharp = ResultText = "<処理中...>";
-
                 try
                 {
                     var result = CSharpTextInstance.RunAsync(text).Result;
@@ -64,6 +62,7 @@ namespace CSTPad.ViewModel
             timer.Elapsed += (sender, e) => NowTime = DateTime.Now;
             timer.Start();
 
+            CSharp = ResultText = "<初期化中...>";
             CSharpConvertionBlock.Post(string.Empty);
         });
     }
