@@ -212,6 +212,10 @@
     <Compile Include="Model\Compiler.cs" />
     <Compile Include="Model\CSharpResultConverter.cs" />
     <Compile Include="Model\CsTextBehavior.cs" />
+    <Compile Include="Model\KeyConverter.cs" />
+    <Compile Include="Model\Text\ScriptIndentProcessor.cs" />
+    <Compile Include="Model\Text\TabToIndentProcessor.cs" />
+    <Compile Include="Model\Text\TextBoxProcessorBase.cs" />
     <Compile Include="Model\TextSharp2CSharpConverter.cs" />
     <Compile Include="ViewModel\DebugEditorViewModel.cs" />
     <Compile Include="ViewModel\MainContentViewModel.cs" />
