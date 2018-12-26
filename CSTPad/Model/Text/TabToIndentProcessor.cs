@@ -17,46 +17,72 @@ namespace CSTPad.Model.Text
             {
                 if (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift))
                 {
-                    // Shift + Tab: 1段階インデント解除
-                    StringBuilder sb = new StringBuilder();
-
-                    for (int i = caret - 1; 0 < i; i--)
+                    if (0 == AssociatedObject.SelectionLength)
                     {
-                        if ('\n' == AssociatedObject.Text[i])
-                        {
-                            break;
-                        }
-
-                        sb.Insert(0, AssociatedObject.Text[i]);
+                        // 単行インデント追加
+                        InsertOneLineTab(caret);
                     }
-
-                    string line = sb.ToString();
-
-                    if (line.All(x => ' ' == x))
+                    else
                     {
-                        if (4 <= line.Length)
-                        {
-                            AssociatedObject.Text = AssociatedObject.Text.Remove(caret - 4, 4);
-                            AssociatedObject.CaretIndex = caret - 4;
-                        }
-                        else
-                        {
-                            AssociatedObject.Text = AssociatedObject.Text.Remove(caret - line.Length, line.Length);
-                            AssociatedObject.CaretIndex = caret - line.Length;
-                        }
+                        // TODO: 複数行インデント追加
                     }
                 }
                 else
                 {
-                    // Tab: 1段階インデント追加
-                    AssociatedObject.Text =
-                        AssociatedObject.Text.Insert(caret, "    ");
-
-                    AssociatedObject.CaretIndex = caret + 4;
+                    if (0 == AssociatedObject.SelectionLength)
+                    {
+                        // 単行インデント削除
+                        RemoveOneLineTab(caret);
+                    }
+                    else
+                    {
+                        // TODO: 複数行インデント削除
+                    }
                 }
 
                 e.Handled = true;
             }
+        }
+
+        private void InsertOneLineTab(int caret)
+        {
+            // Shift + Tab: 1段階インデント解除
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = caret - 1; 0 < i; i--)
+            {
+                if ('\n' == AssociatedObject.Text[i])
+                {
+                    break;
+                }
+
+                sb.Insert(0, AssociatedObject.Text[i]);
+            }
+
+            string line = sb.ToString();
+
+            if (line.All(x => ' ' == x))
+            {
+                if (INDENT.Length <= line.Length)
+                {
+                    AssociatedObject.Text = AssociatedObject.Text.Remove(caret - INDENT.Length, INDENT.Length);
+                    AssociatedObject.CaretIndex = caret - 4;
+                }
+                else
+                {
+                    AssociatedObject.Text = AssociatedObject.Text.Remove(caret - line.Length, line.Length);
+                    AssociatedObject.CaretIndex = caret - line.Length;
+                }
+            }
+        }
+
+        private void RemoveOneLineTab(int caret)
+        {
+            // Tab: 1段階インデント追加
+            AssociatedObject.Text =
+                AssociatedObject.Text.Insert(caret, "    ");
+
+            AssociatedObject.CaretIndex = caret + INDENT.Length;
         }
     }
 }
