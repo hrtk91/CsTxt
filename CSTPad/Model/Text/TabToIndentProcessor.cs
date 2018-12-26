@@ -66,7 +66,7 @@ namespace CSTPad.Model.Text
                 if (INDENT.Length <= line.Length)
                 {
                     AssociatedObject.Text = AssociatedObject.Text.Remove(caret - INDENT.Length, INDENT.Length);
-                    AssociatedObject.CaretIndex = caret - 4;
+                    AssociatedObject.CaretIndex = caret - INDENT.Length;
                 }
                 else
                 {

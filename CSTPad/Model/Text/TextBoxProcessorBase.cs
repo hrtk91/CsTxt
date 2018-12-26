@@ -91,12 +91,11 @@ namespace CSTPad.Model.Text
             int start = 0;
             int end = 0;
 
-            for (start = caret;1 < start && '\n' != text[start - 1];start--)
+            for (start = caret;0 < start && '\n' != text[start - 1];start--)
             {
-
             }
 
-            for (end = caret;end < text.Length - 1 && '\n' != text[end+1];end++)
+            for (end = caret;end < text.Length && '\n' != text[end + 1];end++)
             {
 
             }
