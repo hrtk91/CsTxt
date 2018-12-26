@@ -13,9 +13,6 @@ namespace CSTPad.Model
 {
     public class CsTextBehavior : Behavior<TextBox>
     {
-        private static string INDENT { get; } = "    ";
-        private static string NEW_LINE_SRING { get; } = "\r\n";
-
         private TextBoxProcessorBase TabToIndent { get; } = new TabToIndentProcessor();
         private TextBoxProcessorBase ScriptIndent { get; } = new ScriptIndentProcessor();
 
