@@ -59,33 +59,44 @@ namespace CSTPad.Model.Text
         private void RemoveOneLineTab(string text, int caret)
         {
             // Shift + Tab: 1段階インデント解除
-            StringBuilder sb = new StringBuilder();
+            int start = 0;
+            int end = 0;
 
-            for (int i = caret - 1; 0 < i; i--)
+            if (caret == 0)
             {
-                if ('\n' == text[i])
-                {
-                    break;
-                }
-
-                sb.Insert(0, text[i]);
+                return;
             }
 
-            string line = sb.ToString();
+            for (start = caret; 0 < start && text[start - 1] != '\n'; start--) ;
+            for (end = caret; end < text.Length - 1 && text[end + 1] != '\n'; end++) ;
 
-            if (line.All(x => ' ' == x))
+            string line = text.Substring(start, end - start);
+            string newText = string.Empty;
+            if (text[caret - 1] == ' ')
             {
-                if (INDENT.Length <= line.Length)
+                var linecaret = caret - start;
+                var spaceCount = 0;
+                for (spaceCount = 0; spaceCount < INDENT.Length; spaceCount++)
                 {
-                    AssociatedObject.Text = text.Remove(caret - INDENT.Length, INDENT.Length);
-                    AssociatedObject.CaretIndex = caret - INDENT.Length;
+                    var index = linecaret - spaceCount - 1;
+                    if (index >= 0 && line[index] == ' ')
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
-                else
-                {
-                    AssociatedObject.Text = text.Remove(caret - line.Length, line.Length);
-                    AssociatedObject.CaretIndex = caret - line.Length;
-                }
+                newText = line.Remove(linecaret - spaceCount, spaceCount);
             }
+            else
+            {
+                newText = Regex.Replace(line, "^ {0,4}", string.Empty, RegexOptions.None);
+            }
+
+            AssociatedObject.Text = text.Substring(0, start) + newText + text.Substring(end);
+            AssociatedObject.CaretIndex = caret - (line.Length - newText.Length);
         }
 
         private void InsertMultiLineTab(string text, int caret)
