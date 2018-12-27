@@ -11,6 +11,27 @@ namespace CSTPad.Model.Text
     /// <summary>スクリプト内でのインデント管理</summary>
     public class ScriptIndentProcessor : TextBoxProcessorBase
     {
+        protected bool ShouldInsertBracket(string text,int indent)
+        {
+            // end of block count
+            int eobCount = 0;
+            foreach (var chr in text)
+            {
+                if (chr == '}')
+                {
+                    eobCount++;
+                }
+            }
+
+            if (eobCount == indent)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
         protected override void OnKeyDown(string text, char key, int caret, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -27,6 +48,18 @@ namespace CSTPad.Model.Text
                         text.Substring(caret);
 
                     AssociatedObject.CaretIndex = caret + "\r\n".Length + space.Length;
+
+                    // ブラケット追加
+                    if (ShouldInsertBracket(text, indent) == true && text[caret - 1] == '{')
+                    {
+                        string endspace = string.Empty;
+                        if (indent != 1)
+                        {
+                            endspace = GetIndent(indent - 1);
+                        }
+                        AssociatedObject.Text = text.Substring(0, caret) + "\r\n" + space + "\r\n" + endspace + "}" + text.Substring(caret);
+                        AssociatedObject.CaretIndex = caret + "\r\n".Length + space.Length;
+                    }
                 }
                 else
                 {
@@ -35,8 +68,8 @@ namespace CSTPad.Model.Text
                     var space = new string(lineInfo.Line.TakeWhile(x => ' ' == x).ToArray());
 
                     AssociatedObject.Text =
-                        text.Substring(0, lineInfo.End) + "\r\n" + space + text.Substring(lineInfo.End);
-                    AssociatedObject.CaretIndex = lineInfo.End + "\r\n".Length + space.Length;
+                        text.Insert(caret, "\r\n" + space);
+                    AssociatedObject.CaretIndex = caret + "\r\n".Length + space.Length;
                 }
 
                 e.Handled = true;
