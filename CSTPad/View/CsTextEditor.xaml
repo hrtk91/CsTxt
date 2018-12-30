@@ -19,7 +19,6 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Background="#3CF">
             <TextBlock
-                Name="TextBox"
                 Text="CSharp Text" 
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
@@ -27,12 +26,41 @@
                 FontSize="15"/>
         </Grid>
         <Grid Grid.Row="1">
-            <TextBox Text="{Binding Text, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:CsTextEditor}},UpdateSourceTrigger=PropertyChanged}" 
+            <TextBox Name="TextBox" Text="{Binding Text, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:CsTextEditor}},UpdateSourceTrigger=PropertyChanged}" 
                      Background="#AAF" AcceptsReturn="True" AcceptsTab="True">
                 <i:Interaction.Behaviors>
-                    <m:CsTextBehavior />
+                    <m:CsTextBehavior 
+                        IntellisenceItems="{Binding ItemsSource, ElementName=lstMethodsSelection}"
+                        FocusCommand="{Binding FocusCommand, ElementName=IntellisencePopupBehavior}" />
                 </i:Interaction.Behaviors>
             </TextBox>
+            <Popup
+                x:Name="popupLinqMethods" Height="Auto" Width="150"
+                StaysOpen="False" Placement="Bottom" IsOpen="{Binding IsVisible}"
+                HorizontalAlignment="Left">
+                <vKit:Element.DataContext>
+                    <vm:IntellisencePopupViewModel />
+                </vKit:Element.DataContext>
+                <i:Interaction.Behaviors>
+                    <m:IntellisencePopupBehavior
+                        TextBox="{Binding ElementName=TextBox}"
+                        x:Name="IntellisencePopupBehavior" />
+                </i:Interaction.Behaviors>
+                <vKit:Element.Triggers>
+                    <vKit:EventTrigger EventName="Loaded">
+                        <vKit:InvokeCommandAction Command="{Binding Initialize}" />
+                    </vKit:EventTrigger>
+                </vKit:Element.Triggers>
+                <Grid Width="Auto" Height="Auto">
+                    <ListBox x:Name="lstMethodsSelection"
+                                ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                                SelectedIndex="0"
+                                IsTextSearchEnabled="True"
+                                ItemsSource="{Binding Items}">
+                    </ListBox>
+                </Grid>
+            </Popup>
         </Grid>
     </Grid>
 </UserControl>

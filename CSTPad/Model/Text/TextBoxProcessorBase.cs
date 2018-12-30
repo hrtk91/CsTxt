@@ -21,6 +21,9 @@ namespace CSTPad.Model.Text
             AssociatedObject.PreviewKeyDown += OnKeyDown;
         }
 
+        public void RaiseOnKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+            => OnKeyDown(sender, e);
+
         private void OnKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             char key = KeyConverter.GetCharFromKey(e.Key);

@@ -212,12 +212,15 @@
     <Compile Include="Model\Compiler.cs" />
     <Compile Include="Model\CSharpResultConverter.cs" />
     <Compile Include="Model\CsTextBehavior.cs" />
+    <Compile Include="Model\IntellisencePopupBehavior.cs" />
     <Compile Include="Model\KeyConverter.cs" />
+    <Compile Include="Model\Text\IntellisencePopupProcessor.cs" />
     <Compile Include="Model\Text\ScriptIndentProcessor.cs" />
     <Compile Include="Model\Text\TabToIndentProcessor.cs" />
     <Compile Include="Model\Text\TextBoxProcessorBase.cs" />
     <Compile Include="Model\TextSharp2CSharpConverter.cs" />
     <Compile Include="ViewModel\DebugEditorViewModel.cs" />
+    <Compile Include="ViewModel\IntellisencePopupViewModel.cs" />
     <Compile Include="ViewModel\MainContentViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="View\CSharpView.xaml.cs">
