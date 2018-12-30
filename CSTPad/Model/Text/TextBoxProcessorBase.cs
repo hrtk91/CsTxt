@@ -19,7 +19,11 @@ namespace CSTPad.Model.Text
         {
             AssociatedObject = target;
             AssociatedObject.PreviewKeyDown += OnKeyDown;
+            AssociatedObject.PreviewKeyUp += OnKeyUp;
         }
+
+        public void RaiseOnKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+            => OnKeyDown(sender, e);
 
         private void OnKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
@@ -28,7 +32,16 @@ namespace CSTPad.Model.Text
             OnKeyDown(AssociatedObject.Text, key, AssociatedObject.CaretIndex, e);
         }
 
-        protected abstract void OnKeyDown(string text, char key, int caret, System.Windows.Input.KeyEventArgs e);
+        protected virtual void OnKeyDown(string text, char key, int caret, System.Windows.Input.KeyEventArgs e) { }
+
+        private void OnKeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            char key = KeyConverter.GetCharFromKey(e.Key);
+
+            OnKeyUp(AssociatedObject.Text, key, AssociatedObject.CaretIndex, e);
+        }
+
+        protected virtual void OnKeyUp(string text, char key, int caret, System.Windows.Input.KeyEventArgs e) { }
 
         protected static (int indent, bool isScriptBlock) ScriptIndentAnalyze(string text, int position)
         {
@@ -99,6 +112,25 @@ namespace CSTPad.Model.Text
             string line = text.Substring(start, length);
 
             return (start, end, line);
+        }
+
+        public static string GetCaretWord(string text, int caret)
+        {
+            StringBuilder sb = new StringBuilder();
+            
+            for (int i = caret - 1;0 <= i && !char.IsWhiteSpace(text[i]);i--)
+            {
+                sb.Insert(0, text[i]);
+            }
+
+            for (int i = caret;i < text.Length && !char.IsWhiteSpace(text[i]);i++)
+            {
+                sb.Append(text[i]);
+            }
+
+            string result = sb.ToString();
+
+            return result;
         }
 
         public void Dispose()

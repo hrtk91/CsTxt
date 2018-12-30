@@ -67,8 +67,7 @@ namespace CSTPad.Model.Text
                     var lineInfo = GetCaretLineInfo(text, caret);
                     var space = new string(lineInfo.Line.TakeWhile(x => ' ' == x).ToArray());
 
-                    AssociatedObject.Text =
-                        text.Insert(caret, "\r\n" + space);
+                    AssociatedObject.Text = text.Insert(caret, "\r\n" + space);
                     AssociatedObject.CaretIndex = caret + "\r\n".Length + space.Length;
                 }
 
