@@ -34,9 +34,9 @@ namespace CSTPad.ViewModel
             {
                 try
                 {
+                    CSharp = CSharpTextInstance.CompileToCSharpAsync().Result;
                     var result = CSharpTextInstance.RunAsync(text).Result;
 
-                    CSharp = CSharpTextInstance.CompileToCSharpAsync().Result;
                     ResultText = result;
                 }
                 catch (Exception e)

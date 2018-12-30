@@ -12,6 +12,7 @@ namespace CsTxt.Block
             ScriptBlock.Parse,
             CalcBlock.Parse,
             TextBlock.Parse,
+            UriBlock.Parse,
         };
 
         public static bool TryParse(string text, Func<string, IBlock> func, out IBlock block)

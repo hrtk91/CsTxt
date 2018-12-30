@@ -6,6 +6,6 @@ namespace CsTxt.Block
 {
     public enum BlockType
     {
-        Text, Script, Calc, Using,
+        Text, Script, Calc, Using, Uri,
     }
 }
