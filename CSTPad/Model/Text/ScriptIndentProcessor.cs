@@ -35,8 +35,8 @@ namespace CSTPad.Model.Text
                     var space = new string(lineInfo.Line.TakeWhile(x => ' ' == x).ToArray());
 
                     AssociatedObject.Text =
-                        text.Substring(0, lineInfo.End) + "\r\n" + space + text.Substring(lineInfo.End);
-                    AssociatedObject.CaretIndex = lineInfo.End + "\r\n".Length + space.Length;
+                        text.Substring(0, caret) + "\r\n" + space + text.Substring(caret);
+                    AssociatedObject.CaretIndex = caret + "\r\n".Length + space.Length;
                 }
 
                 e.Handled = true;
