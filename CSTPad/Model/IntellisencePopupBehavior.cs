@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CSTPad.Model.Intellisence;
+using CSTPad.Model.Text;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -25,6 +27,10 @@ namespace CSTPad.Model
                 TextBox.GetRectFromCharacterIndex(TextBox.CaretIndex);
 
             listBox.Focus();
+            if (-1 == listBox.SelectedIndex && 0 < listBox.Items.Count)
+            {
+                listBox.SelectedIndex = 0;
+            }
         });
         
         public TextBox TextBox
@@ -50,8 +56,33 @@ namespace CSTPad.Model
 
             AssociatedObject.KeyDown += (sender, e) =>
             {
+                var grid = AssociatedObject.Child as Grid;
+                var listBox = grid.Children[0] as ListBox;
+
                 if (e.Key == Key.Enter)
                 {
+                    string key = listBox.SelectedValue.ToString();
+                    string value = Snipet.SnipetDictionary[key];
+                    string word = TextBoxProcessorBase.GetCaretWord(TextBox.Text, TextBox.CaretIndex);
+
+                    int caretIndex = 0;
+                    if (value.Contains("{caret}"))
+                    {
+                        caretIndex = value.IndexOf("{caret}");
+                        value = value.Replace("{caret}", string.Empty);
+                    }
+
+                    int caret = TextBox.CaretIndex;
+                    TextBox.Text = TextBox.Text.Remove(caret - word.Length, word.Length).Insert(caret - word.Length, value);
+                    if (0 == caretIndex)
+                    {
+                        TextBox.CaretIndex = caret - word.Length + value.Length;
+                    }
+                    else
+                    {
+                        TextBox.CaretIndex = caret - word.Length + caretIndex;
+                    }
+
                     AssociatedObject.IsOpen = false;
                     TextBox.Focus();
                 }

@@ -44,9 +44,9 @@ namespace CSTPad.Model
         {
             base.OnAttached();
 
+            Intellisence.Registor(AssociatedObject);
             TabToIndent.Registor(AssociatedObject);
             ScriptIndent.Registor(AssociatedObject);
-            Intellisence.Registor(AssociatedObject);
 
             AssociatedObject.KeyDown += (sender, e) =>
             {

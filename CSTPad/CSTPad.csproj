@@ -213,6 +213,7 @@
     <Compile Include="Model\CSharpResultConverter.cs" />
     <Compile Include="Model\CsTextBehavior.cs" />
     <Compile Include="Model\IntellisencePopupBehavior.cs" />
+    <Compile Include="Model\Intellisence\Snipet.cs" />
     <Compile Include="Model\KeyConverter.cs" />
     <Compile Include="Model\Text\IntellisencePopupProcessor.cs" />
     <Compile Include="Model\Text\ScriptIndentProcessor.cs" />
@@ -317,6 +318,17 @@
       <Project>{96e86a43-3936-458c-b1d5-6d59afaf2b5d}</Project>
       <Name>WpfKit</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="snipets\range.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="snipets\using.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="snipets\using_standard.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
