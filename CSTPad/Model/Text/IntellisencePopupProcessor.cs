@@ -24,6 +24,7 @@ namespace CSTPad.Model.Text
                 word =
                     word.Replace("\\", "\\\\")
                     .Replace("(", "\\(")
+                    .Replace(")", "\\)")
                     .Replace("[", "\\[")
                     .Replace("]", "\\]")
                     .Replace("^", "\\^")
