@@ -30,6 +30,9 @@ namespace CSTPad.Model
             if (-1 == listBox.SelectedIndex && 0 < listBox.Items.Count)
             {
                 listBox.SelectedIndex = 0;
+                listBox.ScrollIntoView(listBox.Items[0]);
+                var listBoxItem = (ListBoxItem)listBox.ItemContainerGenerator.ContainerFromItem(listBox.SelectedItem);
+                listBoxItem.Focus();
             }
         });
         

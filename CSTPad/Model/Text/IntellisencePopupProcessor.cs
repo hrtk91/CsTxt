@@ -21,14 +21,7 @@ namespace CSTPad.Model.Text
         {
             if (!string.IsNullOrWhiteSpace(word))
             {
-                word =
-                    word.Replace("\\", "\\\\")
-                    .Replace("(", "\\(")
-                    .Replace(")", "\\)")
-                    .Replace("[", "\\[")
-                    .Replace("]", "\\]")
-                    .Replace("^", "\\^")
-                    .Replace("$", "\\$");
+                word = Regex.Escape(word);
 
                 foreach (var snipet in Snipet.SnipetDictionary)
                 {
